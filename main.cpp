@@ -1,7 +1,4 @@
 #include <iostream>
-#include <ctime>
-
-#include <wiringPi.h>
 
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
@@ -9,16 +6,31 @@
 
 using namespace cv;
 
-void print(std::string string){
-	std::cout << string << std::endl;
-}
-
 int main(){
-	VideoCapture capture = VideoCapture(0);
+	Mat frame;
+	VideoCapture capture;
+	
+	int deviceID = 0;
+	int apiID = cv::CAP_ANY;
+	capture.open(deviceID, apiID);
 
-	if (capture.isOpened() == false){
-		//print("Could not open camera.");
-		return 1;
+	if (!capture.isOpened()){
+		std::cout << "Could not open camera." << std::endl;
+		return -1;
+	}
+
+	for (;;){
+		capture.read(frame);
+
+		if (frame.empty()){
+			break;
+		}
+
+		imshow("Live", frame);
+
+		if (waitKey(5) >= 0){
+			break;
+		}
 	}
 
 	return 0;
