@@ -49,3 +49,4 @@ _deps
 
 #[Output ignores]
 main
+*.avi

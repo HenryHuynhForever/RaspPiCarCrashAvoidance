@@ -4,6 +4,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/imgproc/hal/hal.hpp>
 
 using namespace cv;
 
@@ -29,11 +30,13 @@ int main(){
 		
 		Mat resizePass;
 		Mat colorPass;
+		Mat thresholdPass;
 
-		resize(frame, resizePass, resizePass.size(), 0.5, 0.5, INTER_NEAREST);
+		resize(frame, resizePass, Size(), 0.5, 0.5, INTER_NEAREST);
 		cvtColor(resizePass, colorPass, COLOR_BGR2GRAY);
+		threshold(colorPass, thresholdPass, 50, 255, 1);
 
-		imshow("Live", colorPass);
+		imshow("Live", thresholdPass);
 
 		if (waitKey(5) >= 0){
 			break;
