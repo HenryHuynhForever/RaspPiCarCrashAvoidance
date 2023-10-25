@@ -5,6 +5,7 @@
 #include <opencv2/imgproc.hpp>
 #include <stdio.h>
 #include <ctime>
+//#include <serial/serial.h> // It compiled into /tmp/... WHY
 
 using namespace cv;
 using namespace std;
@@ -32,12 +33,15 @@ public:
 	}
 };
 
+// Main
 int main(int argc, char** argv)
 {
 	CurrentTime time;
 
 	Mat src;
 	VideoCapture cap(0);
+
+	//serialConnection = serial::Serial("", 9600);
 
 	// Code to figure out the camera's resolution.
 	cap >> src;
